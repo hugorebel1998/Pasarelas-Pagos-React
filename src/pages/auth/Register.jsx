@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import { PublicLayout } from "@/layouts"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { startRegister } from '../../redux/auth/thunks'
 
 export const Register = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const [showPassword, setShowPassword] = useState(false)
 
@@ -17,11 +22,24 @@ export const Register = () => {
         setShowPasswordTwo(!showPasswordTwo);
     }
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+        defaultValues: {
+            nombre: '',
+            paterno: '',
+            materno: '',
+            username: '',
+            email: '',
+            password: '',
+            password_confirmation: ''
 
-    const onSubmit = (data) => {
+        }
+    });
 
-        console.log(data)
+    const onSubmit = async (data) => {
+
+        await dispatch(startRegister(data));
+
+        navigate('/home');
     }
 
     return (
@@ -115,9 +133,9 @@ export const Register = () => {
                                                 name="password_confirmation"
                                                 className="form-control"
                                                 {...register("password_confirmation", {
-                                                        validate: {
-                                                            value: value => value === watch('password') || 'Las contraseñas no coinciden'
-                                                        }
+                                                    validate: {
+                                                        value: value => value === watch('password') || 'Las contraseñas no coinciden'
+                                                    }
                                                 })}
                                             />
                                             <button type="button" onClick={onShowPasswordTwo} className="input-group-text">

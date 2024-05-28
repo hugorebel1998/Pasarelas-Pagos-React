@@ -1,22 +1,33 @@
 import { PublicLayout } from "@/layouts"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
+import { startLogin } from "../../redux/auth/thunks"
 
 export const Login = () => {
 
-    const [showPassword, setShowPassword] = useState(false)
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const onShowPassword = () => {
         setShowPassword(!showPassword);
     }
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            email: 'it_admin@hotmail.com',
+            password: '12345678'
+        }
+    });
 
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+        await dispatch(startLogin(data))
 
-        console.log(data)
+        navigate('/home');
     }
 
     return (
