@@ -30,3 +30,15 @@ export const startRegister = (data) => {
 
     }
 }
+
+export const startLogout = () => {
+    return async (dispatch) => {
+
+        const userStore = localStorage.getItem('user');
+
+        if (userStore) {
+            localStorage.removeItem('user');
+            dispatch(logout());
+        }
+    }
+}

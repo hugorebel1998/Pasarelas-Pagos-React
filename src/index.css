@@ -1,5 +1,26 @@
 body {
-  background-color: #000000;
+  background-color: #fafafa;
   margin: 0;
+}
+
+.bg-primary-dark {
+  background-color: #000e7a !important;
+}
+
+.table-primary-dark {
+  background-color: #000e7a !important;
   color: white;
+}
+
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(65, 65, 65, 0.247); /* Oscurece el fondo similar al modal */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Asegúrate de que esté por encima de otros elementos */
 }

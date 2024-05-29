@@ -1,4 +1,4 @@
-import http from "./htt"
+import http from "./http"
 
 export default {
     login(payload) {
