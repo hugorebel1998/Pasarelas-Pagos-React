@@ -15,7 +15,7 @@ export const Navbar = () => {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg bg-primary-dark mb-5">
+        <nav className="navbar navbar-expand-lg bg-react-blue-trasparente">
             <div className="container">
                 <Link to='home' style={{ textDecoration: 'none', color: 'white', fontSize: '20px' }}>
                     APP
@@ -42,7 +42,7 @@ export const Navbar = () => {
                         </li>
                     </ul>
                     <span className="navbar-text">
-                        <button onClick={onLogout} className='btn btn-sm btn-danger'>
+                        <button onClick={onLogout} className='btn btn-sm btn-primary'>
                             Cerrar sesión
                         </button>
                     </span>

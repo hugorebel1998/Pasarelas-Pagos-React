@@ -3,6 +3,14 @@ body {
   margin: 0;
 }
 
+.bg-react-blue {
+  background-color: #67cfff;
+}
+.bg-react-blue-trasparente {
+  background-color: rgba(0, 162, 255, 0.596) !important;
+}
+
+
 .bg-primary-dark {
   background-color: #000e7a !important;
 }

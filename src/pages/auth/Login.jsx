@@ -3,7 +3,9 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import { startLogin } from "../../redux/auth/thunks"
+import { startLogin } from "@/redux/auth/thunks"
+
+import logo from '@/assets/react.svg'
 
 export const Login = () => {
 
@@ -34,8 +36,11 @@ export const Login = () => {
         <PublicLayout>
             <div className="row justify-content-center">
                 <div className="col-md-4">
+                    <div className="text-center mb-5">
+                        <img src={logo} alt="Logo" width="120"/>
+                    </div>
                     <div className="card">
-                        <div className="card-header bg-success" />
+                        <div className="card-header bg-react-blue" />
                         <div className="card-body">
                             <div className="h4 text-center">Inicio sesión</div>
                             <form onSubmit={handleSubmit(onSubmit)}>
@@ -67,7 +72,7 @@ export const Login = () => {
                                     </div>
                                 </div>
                                 <div className="text-center mt-4">
-                                    <button type="submit" className="btn btn-outline-success">Iniciar sesión</button>
+                                    <button type="submit" className="btn btn-outline-info">Iniciar sesión</button>
                                 </div>
                                 <div className="text-end mt-3">
                                     <Link to='/registro' style={{ textDecoration: 'none', fontSize: '13px' }}>
