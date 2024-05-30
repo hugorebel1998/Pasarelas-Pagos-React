@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"
 import catalogoApi from '@/services/catalogos.api';
-import solicitudApi from "@/services/solicitudes.api";
 import { Spiner } from '@/components/Spiner'
+import { useDispatch, useSelector } from "react-redux";
+import { startActualizar, startCrear } from "@/redux/solicitudes";
 
-export const Modal = ({ opModal, clModal, refreshSolicitudes, solicitudEditando }) => {
+export const Modal = ({ openModal, clModal, solicitudEditando }) => {
 
-  const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm({
-    mode: 'all',
-  })
+  const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm({ mode: 'all', })
+
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.solicitudes);
 
   useEffect(() => {
     if (solicitudEditando) {
-      // Iterar sobre las claves del objeto solicitudEditando
       Object.keys(solicitudEditando).forEach((key) => {
-        // Establecer el valor del campo del formulario según la clave del objeto
         setValue(key, solicitudEditando[key]);
       });
     } else {
@@ -24,8 +24,6 @@ export const Modal = ({ opModal, clModal, refreshSolicitudes, solicitudEditando 
 
 
   const [paises, setPaises] = useState([]);
-  const [loading, setLoading] = useState(false)
-
   const [programas, setProgramas] = useState([]);
 
   const loadPaises = async () => {
@@ -49,28 +47,21 @@ export const Modal = ({ opModal, clModal, refreshSolicitudes, solicitudEditando 
   }, [])
 
 
-  if (!opModal) {
-    return null;
-  }
-
   const onSubmit = async (data) => {
-    setLoading(true)
-    try {
-      if (!solicitudEditando) {
-        await solicitudApi.crear(data);
-        reset();
-        clModal();
-        refreshSolicitudes();
-      } else {
-        await solicitudApi.actualizar(solicitudEditando.id, data)
-        reset();
-        clModal();
-        refreshSolicitudes();
-      }
-    } finally {
-      setLoading(false)
+
+    if (!solicitudEditando) {
+      dispatch(startCrear(data))
+      reset();
+      clModal();
+    } else {
+      dispatch(startActualizar(solicitudEditando.id, data))
+      reset();
+      clModal();
     }
   }
+
+  if (!openModal)
+    return
 
   return (
     <>
@@ -79,7 +70,7 @@ export const Modal = ({ opModal, clModal, refreshSolicitudes, solicitudEditando 
         <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">{ solicitudEditando ? 'Actualizar solicitud': 'Crear solicitud'}</h5>
+              <h5 className="modal-title">{solicitudEditando ? 'Actualizar solicitud' : 'Crear solicitud'}</h5>
               <button type="button" className="btn-close" onClick={clModal}></button>
             </div>
             <div className="modal-body">

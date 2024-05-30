@@ -1,2 +1,2 @@
 export * from './Home';
-export * from './solicitudes/Listar'
+export * from './solicitudes/Solicitudes';
