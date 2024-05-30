@@ -15,7 +15,7 @@ export const PrivateLayout = ({ children }) => {
                 color:'white',
             }}>
                 <div className="container">
-                    <div className="row justify-content-center">
+                    <div className="row justify-content-center pt-5">
                         <div className="col-md-12">
                             {children}
                         </div>

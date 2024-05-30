@@ -37,9 +37,9 @@ export const Login = () => {
             <div className="row justify-content-center">
                 <div className="col-md-4">
                     <div className="text-center mb-5">
-                        <img src={logo} alt="Logo" width="120"/>
+                        <img src={logo} alt="Logo" width="120" />
                     </div>
-                    <div className="card">
+                    <div className="card card-transparent">
                         <div className="card-header bg-react-blue" />
                         <div className="card-body">
                             <div className="h4 text-center">Inicio sesión</div>
@@ -72,10 +72,13 @@ export const Login = () => {
                                     </div>
                                 </div>
                                 <div className="text-center mt-4">
-                                    <button type="submit" className="btn btn-outline-info">Iniciar sesión</button>
+                                    <button type="submit" className="text-white btn btn-info">
+                                        Iniciar sesión
+                                        <i className="fa fa-sign-in-alt mx-1"></i>
+                                    </button>
                                 </div>
                                 <div className="text-end mt-3">
-                                    <Link to='/registro' style={{ textDecoration: 'none', fontSize: '13px' }}>
+                                    <Link to='/registro' className="text-white" style={{ textDecoration: 'none', fontSize: '13px' }}>
                                         Crear una nueva cuenta
                                     </Link>
                                 </div>

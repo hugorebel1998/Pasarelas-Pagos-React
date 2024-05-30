@@ -6,14 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { startActualizar, startCrear, startListar } from "@/redux/solicitudes";
 import Swal from "sweetalert2";
 
-export const Modal = ({ openModal, closedModal, solicitudEdit }) => {
+export const Solicitud = ({ openModal, closedModal, solicitudEdit }) => {
 
 
 
   const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm({ mode: 'all' })
 
   const dispatch = useDispatch();
-  const { loading} = useSelector((state) => state.solicitudes);
+  const { loading } = useSelector((state) => state.solicitudes);
 
   useEffect(() => {
     if (solicitudEdit !== null && solicitudEdit !== undefined) {
@@ -75,7 +75,7 @@ export const Modal = ({ openModal, closedModal, solicitudEdit }) => {
       <div className="modal-backdrop show" />
       <div className="modal show d-block" style={{ display: 'block' }}>
         <div className="modal-dialog modal-dialog-centered modal-lg">
-          <div className="modal-content">
+          <div className="modal-content modal-transparent">
             <div className="modal-header">
               <h5 className="modal-title">{solicitudEdit ? 'Actualizar solicitud' : 'Crear solicitud'}</h5>
               <button type="button" className="btn-close" onClick={closedModal}></button>
@@ -295,8 +295,14 @@ export const Modal = ({ openModal, closedModal, solicitudEdit }) => {
 
                 </div>
                 <div className="text-end mt-4">
-                  <button type="button" className="btn btn-danger mx-3" onClick={closedModal}>Cerrer</button>
-                  <button type="submit" className="btn btn-primary">Guardar</button>
+                  <button type="button" className="btn btn-danger mx-3" onClick={closedModal}>
+                    <i className="fas fa-times mx-1"></i>
+                    Cerrar
+                  </button>
+                  <button type="submit" className="text-white btn btn-info">
+                    <i className="fas fa-plus mx-1"></i>
+                    Guardar solicitud
+                  </button>
                 </div>
               </form>
             </div>

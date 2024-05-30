@@ -6,6 +6,11 @@ body {
 .bg-react-blue {
   background-color: #67cfff;
 }
+
+.text-react-blue {
+  background-color: #67cfff !important;
+}
+
 .bg-react-blue-trasparente {
   background-color: rgba(0, 162, 255, 0.596) !important;
 }
@@ -26,9 +31,34 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(65, 65, 65, 0.247); /* Oscurece el fondo similar al modal */
+  background-color: rgba(65, 65, 65, 0.247);
+  /* Oscurece el fondo similar al modal */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1050; /* Asegúrate de que esté por encima de otros elementos */
+  z-index: 1050;
+  /* Asegúrate de que esté por encima de otros elementos */
+}
+
+
+.card-transparent {
+  background-color: rgba(255, 255, 255, 0.219);
+  border: none;
+  color: white;
+}
+
+.table-transparent {
+  background-color: rgba(255, 255, 255, 0.144);
+  color: white;
+}
+
+.table-transparent th,
+.table-transparent td {
+  background-color: rgba(255, 255, 255, 0.144);
+  color: white;
+}
+
+.modal-transparent {
+  background-color: rgba(255, 255, 255, 0.212);
+  color: white;
 }

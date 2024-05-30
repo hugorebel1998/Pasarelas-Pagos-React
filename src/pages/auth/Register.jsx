@@ -3,7 +3,9 @@ import { PublicLayout } from "@/layouts"
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { startRegister } from '../../redux/auth/thunks'
+import { startRegister } from '@/redux/auth/thunks'
+import logo from '@/assets/react.svg'
+
 
 export const Register = () => {
 
@@ -46,8 +48,11 @@ export const Register = () => {
         <PublicLayout>
             <div className="row justify-content-center">
                 <div className="col-md-4">
-                    <div className="card">
-                        <div className="card-header bg-success" />
+                    <div className="text-center my-3">
+                        <img src={logo} alt="Logo" width="120" />
+                    </div>
+                    <div className="card card-transparent">
+                        <div className="card-header bg-react-blue" />
                         <div className="card-body">
                             <div className="h4 text-center">Crear cuenta</div>
                             <form onSubmit={handleSubmit(onSubmit)}>
@@ -146,11 +151,14 @@ export const Register = () => {
                                     </div>
                                 </div>
                                 <div className="text-center mt-4">
-                                    <button type="submit" className="btn btn-outline-success">Crear cuenta</button>
+                                    <button type="submit" className="text-white btn btn-info">
+                                        Crear cuenta
+                                        <i className="fa fa-sign-in-alt mx-1"></i>
+                                        </button>
                                 </div>
 
                                 <div className="text-end mt-3">
-                                    <Link to='/login' style={{ textDecoration: 'none', fontSize: '13px' }}>
+                                    <Link to='/login' className="text-white" style={{ textDecoration: 'none', fontSize: '13px' }}>
                                         Ya tengo una cuenta
                                     </Link>
                                 </div>
