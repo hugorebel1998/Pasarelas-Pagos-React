@@ -20,7 +20,8 @@ export const startCrear = (data) => {
         dispatch(isChecking());
 
         const response = await create(data)
-
+        
+        console.log(response)
         if (!response.ok)
             return
 

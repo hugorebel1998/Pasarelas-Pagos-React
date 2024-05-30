@@ -3,24 +3,28 @@ import { useForm } from "react-hook-form"
 import catalogoApi from '@/services/catalogos.api';
 import { Spiner } from '@/components/Spiner'
 import { useDispatch, useSelector } from "react-redux";
-import { startActualizar, startCrear } from "@/redux/solicitudes";
+import { startActualizar, startCrear, startListar } from "@/redux/solicitudes";
+import Swal from "sweetalert2";
 
-export const Modal = ({ openModal, clModal, solicitudEditando }) => {
+export const Modal = ({ openModal, closedModal, solicitudEdit }) => {
 
-  const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm({ mode: 'all', })
+
+
+  const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm({ mode: 'all' })
 
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.solicitudes);
+  const { loading} = useSelector((state) => state.solicitudes);
 
   useEffect(() => {
-    if (solicitudEditando) {
-      Object.keys(solicitudEditando).forEach((key) => {
-        setValue(key, solicitudEditando[key]);
+    if (solicitudEdit !== null && solicitudEdit !== undefined) {
+      console.log({ solicitudEdit });
+      Object.keys(solicitudEdit).forEach((key) => {
+        setValue(key, solicitudEdit[key]);
       });
     } else {
       reset();
     }
-  }, [solicitudEditando])
+  }, [solicitudEdit]);
 
 
   const [paises, setPaises] = useState([]);
@@ -48,20 +52,23 @@ export const Modal = ({ openModal, clModal, solicitudEditando }) => {
 
 
   const onSubmit = async (data) => {
-
-    if (!solicitudEditando) {
+    if (!solicitudEdit) {
       dispatch(startCrear(data))
       reset();
-      clModal();
+      Swal.fire({ title: 'Éxito', text: 'Solicitud creada con éxito.', icon: "success" });
+      closedModal();
     } else {
-      dispatch(startActualizar(solicitudEditando.id, data))
+      dispatch(startListar());
+      dispatch(startActualizar(solicitudEdit.id, data))
       reset();
-      clModal();
+      Swal.fire({ title: 'Éxito', text: 'Solicitud ctualizada con éxito.', icon: "info" });
+      closedModal();
     }
   }
 
-  if (!openModal)
-    return
+  if (!openModal) {
+    return null;
+  }
 
   return (
     <>
@@ -70,8 +77,8 @@ export const Modal = ({ openModal, clModal, solicitudEditando }) => {
         <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">{solicitudEditando ? 'Actualizar solicitud' : 'Crear solicitud'}</h5>
-              <button type="button" className="btn-close" onClick={clModal}></button>
+              <h5 className="modal-title">{solicitudEdit ? 'Actualizar solicitud' : 'Crear solicitud'}</h5>
+              <button type="button" className="btn-close" onClick={closedModal}></button>
             </div>
             <div className="modal-body">
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -117,7 +124,7 @@ export const Modal = ({ openModal, clModal, solicitudEditando }) => {
                   <div className="col-md-4">
                     <label className="form-label">Año escolar</label>
                     <input
-                      type="text"
+                      type="number"
                       name="anio_escolar"
                       autoComplete="off"
                       className={`form-control ${errors.anio_escolar ? 'is-invalid' : ''}`}
@@ -246,7 +253,7 @@ export const Modal = ({ openModal, clModal, solicitudEditando }) => {
                       <option value=''>--Selecciona una opcion--</option>
                       {
                         paises.map((pais) => (
-                          <option key={pais.id} value={solicitudEditando ? solicitudEditando.pais_clave : pais.nombre}> {pais.nombre}</option>
+                          <option key={pais.id} value={solicitudEdit ? solicitudEdit.pais_clave : pais.nombre}> {pais.nombre}</option>
                         ))
                       }
                     </select>
@@ -265,7 +272,7 @@ export const Modal = ({ openModal, clModal, solicitudEditando }) => {
                       <option value=''>--Selecciona una opcion--</option>
                       {
                         programas.map((programa) => (
-                          <option key={programa.id} value={solicitudEditando ? solicitudEditando.programa_clave : programa.nombre}> {programa.nombre}</option>
+                          <option key={programa.id} value={solicitudEdit ? solicitudEdit.programa_clave : programa.nombre}> {programa.nombre}</option>
                         ))
                       }
 
@@ -288,7 +295,7 @@ export const Modal = ({ openModal, clModal, solicitudEditando }) => {
 
                 </div>
                 <div className="text-end mt-4">
-                  <button type="button" className="btn btn-danger mx-3" onClick={clModal}>Cerrer</button>
+                  <button type="button" className="btn btn-danger mx-3" onClick={closedModal}>Cerrer</button>
                   <button type="submit" className="btn btn-primary">Guardar</button>
                 </div>
               </form>

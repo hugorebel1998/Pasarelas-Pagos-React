@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { App } from './App.jsx'
 import { store } from './redux'
+import 'sweetalert2/src/sweetalert2.scss'
 
 import './index.css'
 

@@ -29,7 +29,7 @@ export const create = async (data) => {
     } catch (error) {
         return {
             ok: false,
-            response
+            error
         }
     }
 }
@@ -45,7 +45,7 @@ export const update = async (solicitud_id, data) => {
     } catch (error) {
         return {
             ok: false,
-            response
+            error
         }
     }
 }

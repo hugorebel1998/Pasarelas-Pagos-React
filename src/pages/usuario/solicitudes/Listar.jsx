@@ -1,8 +1,8 @@
 
-export const Listar = ({ solicitudes, onOpenModal }) => {
+export const Listar = ({ solicitudes, onOpenModalEdit }) => {
 
     const handleEditSolicitud = (solicitud) => {
-        onOpenModal(solicitud);
+        onOpenModalEdit(solicitud);
     }
 
     return (

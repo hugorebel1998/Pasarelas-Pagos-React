@@ -6,30 +6,37 @@ export const solicitudesSlice = createSlice({
         loading: false,
         estatus: null,
         solicitudes: [],
-        solicitud: null,
-        error: null
+        error: null,
+        mensajeExito: '',
     },
     reducers: {
         isChecking: (state) => {
             state.loading = true;
-            state.error = null;
+            state.mensajeExito = '';
         },
         listar: (state, { payload }) => {
             state.solicitudes = payload.response;
             state.loading = false;
             state.error = payload.error
+            state.mensajeExito = '';
         },
         crear: (state, { payload }) => {
-            state.solicitud = payload.response;
+            state.solicitudes.unshift(payload.response);
             state.loading = false;
-            state.error = payload.error
+            state.error = payload.error;
+            state.mensajeExito = 'Nueva solicitud creada con éxito';
         },
         actualizar: (state, { payload }) => {
-            state.solicitud = payload.response;
+            state.solicitudes = state.solicitudes.map(solicitud => {
+                if (solicitud.id = payload.id) {
+                    return payload
+                }
+                return solicitud
+            });
             state.loading = false;
-            state.error = payload.error
+            state.error = payload.error;
+            state.mensajeExito = 'Solicitud actualizada con éxito';
         }
-
     }
 });
 

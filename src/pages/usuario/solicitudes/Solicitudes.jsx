@@ -9,33 +9,34 @@ import { Listar } from './Listar';
 
 export const Solicitudes = () => {
 
-    const { solicitudes, loading } = useSelector((state) => state.solicitudes);
     const dispatch = useDispatch()
+    const { solicitudes, loading } = useSelector((state) => state.solicitudes);
 
     const [showModal, setShowModal] = useState(false)
-    const [solicitudEditando, setSolicitudEditando] = useState(null);
+    const [solicitudEdit, setSolicitudEdit] = useState(null);
 
-    const loadSolicitudes = async () => {
+    const handleLoadSolicitudes = async () => {
         dispatch(startListar());
     }
 
-    const handleOpenModal = (solicitud) => {
+    const handleOpenModal = () => {
         setShowModal(true)
-        setSolicitudEditando(solicitud)
+        setSolicitudEdit(null)
     }
 
-    // const openModalEdit = (solcitud) => {
-    //     setSolicitudEditando(solcitud)
-    //     setShowModal(true)
-    // }
+    const handleOpenModalEdit = (solicitud) => {
+        setShowModal(true)
+        setSolicitudEdit(solicitud)
+    }
 
-    const closeModal = () => {
+    const handleCloseModal = () => {
         setShowModal(false)
-        setSolicitudEditando(null)
+        setSolicitudEdit(null)
+        handleLoadSolicitudes();
     }
 
     useEffect(() => {
-        loadSolicitudes()
+        handleLoadSolicitudes()
     }, [])
 
 
@@ -46,14 +47,14 @@ export const Solicitudes = () => {
             <div className="row justify-content-center">
                 <div className="col-md-11">
                     <div className="text-start">
-                        <button onClick={loadSolicitudes} className="btn btn-outline-success mb-3 mx-2">Actualizar</button>
+                        <button onClick={handleLoadSolicitudes} className="btn btn-outline-success mb-3 mx-2">Actualizar</button>
                         <button onClick={handleOpenModal} className="btn btn-outline-primary mb-3">Nueva solcitud</button>
                     </div>
 
                     <div className='card shadow'>
-                        <Listar solicitudes={solicitudes} onOpenModal={handleOpenModal} />
+                        <Listar solicitudes={solicitudes} onOpenModalEdit={handleOpenModalEdit} />
                     </div>
-                    <Modal openModal={showModal} clModal={closeModal} solicitudEditando={solicitudEditando} />
+                    <Modal openModal={showModal} closedModal={handleCloseModal} solicitudEdit={solicitudEdit} />
                 </div>
             </div>
         </PrivateLayout>

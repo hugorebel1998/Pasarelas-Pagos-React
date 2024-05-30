@@ -17,35 +17,36 @@ http.interceptors.request.use((config) => {
 });
 
 http.interceptors.response.use(({ data }) => {
-    return data;
-}, async ({ response }) => {
+    return data
+}, ({ response }) => {
 
-    if (response.status === 401 && response.statusText == 'Unauthorized') {
-
-        const userStorage = localStorage.getItem('user');
-        const userS = JSON.parse(userStorage);
-        const { access_token, user } = userS;
-        console.log("Actiguo:", access_token)
-
-        try {
-            const response = await axios.post(`${baseURL}auth/refresh-token`, { token: access_token});
-
-            const newToken = response.data.access_token
-            user.access_token = newToken;
-
-            localStorage.setItem('user', JSON.stringify(user));
-
-            axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
-
-        } catch (error) {
-
-        }
-    }
-
-
-    console.log("Respuesta", response)
-
-    return Promise.reject(response.data);
+    return Promise.reject(response);
 });
+// http.interceptors.response.use(({ data }) => {
+//     return data;
+// }
+// , async ({ response }) => {
+
+// if (response.status === 401 && response.statusText == 'Unauthorized') {
+
+//     const userStorage = localStorage.getItem('user');
+//     const userS = JSON.parse(userStorage);
+//     const { access_token, user } = userS;
+
+//     try {
+//         const response = await axios.post(`${baseURL}auth/refresh-token`, { token: access_token});
+
+//         const newToken = response.data.access_token
+//         user.access_token = newToken;
+
+//         localStorage.setItem('user', JSON.stringify(user));
+
+//         axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+
+//     } catch (error) {
+
+//     }
+// }
+// });
 
 export default http;
