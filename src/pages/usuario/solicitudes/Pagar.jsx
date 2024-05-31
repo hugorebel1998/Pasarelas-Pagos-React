@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import catalogoApi from "@/services/catalogos.api";
+import { useDispatch, useSelector } from "react-redux";
+import { startCrear } from "@/redux/pagos/thunks";
+import Swal from "sweetalert2";
 
 export const Pagar = ({ openModalPagar, closedModalPagar, solicitudPagar }) => {
+
+
+  const dispatch = useDispatch()
+  const { } = useSelector((state) => state.pagos);
 
   const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm({ mode: 'all' })
 
   const [monedas, setMonedas] = useState([])
+
 
   const onLoadCatalogo = async () => {
     const response = await catalogoApi.codigo('divisas');
@@ -21,8 +29,14 @@ export const Pagar = ({ openModalPagar, closedModalPagar, solicitudPagar }) => {
   }, [])
 
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+
+    const response = await dispatch(startCrear(solicitudPagar.id, data))
+    window.open(response, '_blank');
+
+    reset();
+    Swal.fire({ title: 'Éxito', text: 'Tú pago se empezara a procesar por favor termina el proceso en la pasarela de pago correspondiente.', icon: "success" });
+    closedModalPagar();
   }
 
   if (!openModalPagar)
@@ -46,7 +60,7 @@ export const Pagar = ({ openModalPagar, closedModalPagar, solicitudPagar }) => {
                     <select
                       name="pasarela_pago"
                       className={`form-select ${errors.pasarela_pago ? 'is-invalid' : ''}`}
-                      {...register("parentesco", { required: 'El campo pasarela pago es requerido.' })}
+                      {...register("pasarela_pago", { required: 'El campo pasarela pago es requerido.' })}
                       defaultValue=""
                     >
                       <option value=''>--Selecciona una opcion--</option>

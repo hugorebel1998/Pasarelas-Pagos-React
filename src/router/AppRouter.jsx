@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import { Login, Register } from "@/pages/auth"
-import { Home, Solicitudes } from "@/pages/usuario"
+import { Home, Solicitudes, Pagos } from "@/pages/usuario"
 import { PrivateRouter } from "./PrivateRouter"
 import { PublicRouter } from "./PublicRouter"
 
@@ -19,6 +19,7 @@ export const AppRouter = () => {
                 <Route index element={<Home />} />
                 <Route path="home" element={<Home />} />
                 <Route path="solicitudes" element={<Solicitudes />} />
+                <Route path="pagos" element={<Pagos />} />
             </Route>
 
         </Routes>

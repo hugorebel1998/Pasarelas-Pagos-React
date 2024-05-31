@@ -32,7 +32,7 @@ export const Navbar = () => {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='home' style={{ textDecoration: 'none', color: 'white', fontSize: '16px' }} className="nav-link">
+                            <Link to='/pagos' style={{ textDecoration: 'none', color: 'white', fontSize: '16px' }} className="nav-link">
                                 Pagos
                             </Link>
                         </li>

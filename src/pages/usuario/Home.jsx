@@ -10,7 +10,7 @@ export const Home = () => {
             <div className="card-header bg-react-blue " />
             <div className="card-body">
               <div className="h1 text-white">
-                <i class="fab fa-pushed mx-2"></i>
+                <i className="fab fa-pushed mx-2" />
                 Solcitudes
               </div>
               <hr className="text-white" />
@@ -23,7 +23,7 @@ export const Home = () => {
               <div className="text-end">
                 <Link to='/solicitudes' className="text-white btn btn-info">
                   Visitar
-                  <i class="fas fa-arrow-right mx-1"></i>
+                  <i className="fas fa-arrow-right mx-1" />
 
                 </Link>
               </div>
@@ -36,7 +36,7 @@ export const Home = () => {
             <div className="card-header bg-react-blue " />
             <div className="card-body">
               <div className="h1 text-white">
-                <i class="fab fa-pushed mx-2"></i>
+                <i className="fab fa-pushed mx-2"></i>
                 Pagos
               </div>
               <hr className="text-white" />
@@ -47,9 +47,9 @@ export const Home = () => {
             </div>
             <div className="card-header">
               <div className="text-end">
-                <Link to='/solicitudes' className="text-white btn btn-info">
+                <Link to='/pagos' className="text-white btn btn-info">
                   Visitar
-                  <i class="fas fa-arrow-right mx-1"></i>
+                  <i className="fas fa-arrow-right mx-1" />
                 </Link>
               </div>
             </div>
