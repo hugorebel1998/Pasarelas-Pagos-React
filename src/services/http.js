@@ -18,35 +18,33 @@ http.interceptors.request.use((config) => {
 
 http.interceptors.response.use(({ data }) => {
     return data
-}, ({ response }) => {
+}, async ({ response }) => {
 
-    return Promise.reject(response);
+    const mensaje = response.data.message
+
+    if (response.status === 401 && message == "Error autenticación") {
+
+        try {
+            const userStorage = localStorage.getItem('user');
+            const usuario = JSON.parse(userStorage);
+
+            const payload = {
+                token: usuario.access_token,
+                usuario_id: usuario.user.id
+            }
+
+            const response = await axios.post(`${baseURL}auth/refresh-token`, payload);
+            const { data } = response
+            usuario.access_token = data.access_token
+            localStorage.setItem('user', JSON.stringify(usuario));
+
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data.access_token}`;
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    return Promise.reject(mensaje);
 });
-// http.interceptors.response.use(({ data }) => {
-//     return data;
-// }
-// , async ({ response }) => {
-
-// if (response.status === 401 && response.statusText == 'Unauthorized') {
-
-//     const userStorage = localStorage.getItem('user');
-//     const userS = JSON.parse(userStorage);
-//     const { access_token, user } = userS;
-
-//     try {
-//         const response = await axios.post(`${baseURL}auth/refresh-token`, { token: access_token});
-
-//         const newToken = response.data.access_token
-//         user.access_token = newToken;
-
-//         localStorage.setItem('user', JSON.stringify(user));
-
-//         axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
-
-//     } catch (error) {
-
-//     }
-// }
-// });
-
 export default http;
